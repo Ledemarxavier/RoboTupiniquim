@@ -10,5 +10,11 @@ namespace RoboTupiniquim.ConsoleApp
     {
         public int MaxX { get; }
         public int MaxY { get; }
+
+        public Terreno(int maxX, int maxY)
+        {
+            MaxX = maxX;
+            MaxY = maxY;
+        }
     }
 }

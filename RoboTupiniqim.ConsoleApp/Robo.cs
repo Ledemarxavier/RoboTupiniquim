@@ -10,7 +10,7 @@ namespace RoboTupiniquim.ConsoleApp
     {
         public int X { get; private set; }
         public int Y { get; private set; }
-        private int direcao;
-        private Terreno terreno;
+        public int direcao;
+        public Terreno terreno;
     }
 }
