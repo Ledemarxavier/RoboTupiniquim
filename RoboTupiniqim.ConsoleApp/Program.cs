@@ -5,8 +5,12 @@
         public static void Main(string[] args)
 
         {
-            Controlador controlador = new Controlador();
-            controlador.Executar();
+            while (true)
+            {
+                Controlador controlador = new Controlador();
+                controlador.Executar();
+                Console.ReadLine();
+            }
         }
     }
 }

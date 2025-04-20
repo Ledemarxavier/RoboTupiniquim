@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 
 namespace RoboTupiniquim.ConsoleApp
 {
-    internal class Robo
+    public class Robo
     {
-        public int X { get; private set; }
-        public int Y { get; private set; }
-        public int direcao;
+        public int X { get; set; }
+        public int Y { get; set; }
+        public char Direcao { get; private set; }
         public Terreno terreno;
+
+        public Robo(int x, int y, char direcao, Terreno terreno)
+        {
+            X = x;
+            Y = y;
+            Direcao = char.ToUpper(direcao);
+            this.terreno = terreno;
+        }
     }
 }

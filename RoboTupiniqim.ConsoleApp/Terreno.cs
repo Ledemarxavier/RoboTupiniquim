@@ -16,5 +16,10 @@ namespace RoboTupiniquim.ConsoleApp
             MaxX = maxX;
             MaxY = maxY;
         }
+
+        public bool PosicaoValida(int x, int y)
+        {
+            return x >= 0 && x <= MaxX && y >= 0 && y <= MaxY;
+        }
     }
 }
