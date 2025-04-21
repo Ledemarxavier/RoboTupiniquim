@@ -9,7 +9,7 @@
             {
                 Controlador controlador = new Controlador();
                 controlador.Executar();
-                Console.ReadLine();
+                break;
             }
         }
     }
