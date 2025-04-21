@@ -26,18 +26,19 @@ namespace RoboTupiniqim.ConsoleApp
 
             for (int i = 0; i < quantidade; i++)
             {
-                Console.WriteLine($"\nConfigurar do robô ->{i + 1}:");
+                Console.WriteLine($"\nConfigurar robô #{i + 1}:");
                 Robo robo = CriarRobo();
                 robos.Add(robo);
 
                 Console.Write("Digite os comandos (Ex: EMEMEMEMM): ");
                 string comandos = Console.ReadLine().ToUpper();
+                ExecutarComandos(robo, comandos);
             }
             Console.WriteLine("\n---- Posições finais dos robôs ----");
             for (int i = 0; i < robos.Count; i++)
             {
                 Robo r = robos[i];
-                Console.WriteLine($"Robô #{i + 1}: {r.X} {r.Y}");
+                Console.WriteLine($"Robô #{i + 1}: {r.X} {r.Y} {r.DirecaoAtual()}");
             }
         }
 
@@ -71,10 +72,56 @@ namespace RoboTupiniqim.ConsoleApp
                     Console.WriteLine("Posição fora dos limites do terreno. Tente novamente.");
                     continue;
                 }
+                bool ocupado = robos.Exists(r => r.X == x && r.Y == y);
+                if (ocupado)
+                {
+                    Console.WriteLine("Já existe um robô nessa posição. Escolha outra.");
+                    continue;
+                }
 
                 Robo robo = new Robo(x, y, direcao, terreno);
-                Console.WriteLine($"Posição: {robo.X} {robo.Y} {robo.Direcao}");
+                Console.WriteLine($"Robô criado : {robo.X} {robo.Y} {robo.DirecaoAtual()}");
                 return robo;
+            }
+        }
+
+        public void ExecutarComandos(Robo robo, string comandos)
+        {
+            foreach (char c in comandos)
+            {
+                if (c == 'E')
+                {
+                    robo.VirarEsquerda();
+                }
+                else if (c == 'D')
+                {
+                    robo.VirarDireita();
+                }
+                else if (c == 'M')
+                {
+                    int novoX = robo.X;
+                    int novoY = robo.Y;
+
+                    if (robo.direcao == 0) novoY++;
+                    else if (robo.direcao == 1) novoX++;
+                    else if (robo.direcao == 2) novoY--;
+                    else if (robo.direcao == 3) novoX--;
+
+                    bool ocupado = robos.Exists(r => r != robo && r.X == novoX && r.Y == novoY);
+                    if (!terreno.PosicaoValida(novoX, novoY))
+                    {
+                        Console.WriteLine($"Robô tentou sair dos limites: ({novoX},{novoY})");
+                    }
+                    else if (ocupado)
+                    {
+                        Console.WriteLine($"Colisão detectada! Outro robô está em ({novoX},{novoY})");
+                    }
+                    else
+                    {
+                        robo.X = novoX;
+                        robo.Y = novoY;
+                    }
+                }
             }
         }
     }
